@@ -1,0 +1,5 @@
+commonBean:
+  userId: 1
+  userName: huah
+huah:
+  workId: 123
