@@ -1,3 +1,5 @@
+server:
+  port: 9099
 commonBean:
   userId: 1
   userName: huah

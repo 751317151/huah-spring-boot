@@ -25,6 +25,7 @@ public class UserController {
     @GetMapping("/test")
     public String test() {
         System.out.println(commonBean);
+        idGenerateService.testAspect();
         System.out.println(idGenerateService.generate());
         return "success";
     }
