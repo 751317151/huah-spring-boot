@@ -3,6 +3,8 @@
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/huah-spring-boot-demo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/huah-spring-boot-demo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/huah-spring-boot-starter/huah-spring-boot-starter-kafka/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/huah-spring-boot-starter/huah-spring-boot-starter-kafka/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/huah-spring-boot-web/src/main/java" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

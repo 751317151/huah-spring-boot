@@ -13,12 +13,9 @@
     <name>Huah Spring Boot Dependencies ${project.version}</name>
 
     <properties>
-        <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+        <spring-boot.version>2.7.9</spring-boot.version>
         <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
         <spring.cloud.alibaba.version>2.2.3.RELEASE</spring.cloud.alibaba.version>
-
-        <huah-spring-boot-starter-web.version>12.0.9.0</huah-spring-boot-starter-web.version>
-        <id-generate-huah-spring-boot-starter.version>12.0.9.0</id-generate-huah-spring-boot-starter.version>
     </properties>
 
     <dependencyManagement>
@@ -48,12 +45,12 @@
             <dependency>
                 <groupId>com.huah</groupId>
                 <artifactId>huah-spring-boot-starter-web</artifactId>
-                <version>${huah-spring-boot-starter-web.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.huah</groupId>
                 <artifactId>id-generate-huah-spring-boot-starter</artifactId>
-                <version>${id-generate-huah-spring-boot-starter.version}</version>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
