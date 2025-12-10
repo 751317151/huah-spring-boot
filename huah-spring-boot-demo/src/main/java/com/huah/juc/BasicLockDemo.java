@@ -18,6 +18,6 @@ public class BasicLockDemo {
             synchronized (objectLock) {
                 System.out.println(ClassLayout.parseInstance(objectLock).toPrintable());
             }
-        }, "t1").start();
+        }, "t2").start();
     }
 }

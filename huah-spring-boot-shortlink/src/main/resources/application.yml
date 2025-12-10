@@ -1,0 +1,117 @@
+server:
+  port: 9099
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html          # 访问地址
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs              # OpenAPI JSON 地址
+  packages-to-scan: com.huah.huahspringbootshortlink.controller  # 扫描包
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+# 本地缓存指标监控
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+#logging:
+#  level:
+#    org.springframework.security: DEBUG
+#    # Spring 容器 Bean 加载日志
+#    org.springframework.beans.factory: DEBUG
+#    # 可选：查看自动配置类的决策过程
+#    org.springframework.boot.autoconfigure: TRACE
+spring:
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+#    properties:
+#      security.protocol: SASL_PLAINTEXT         # 安全协议（根据集群配置调整）
+#      sasl.mechanism: PLAIN       # 认证机制
+#      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secret";
+    producer: # 生产者配置
+      retries: 3 # 设置大于0的值，则客户端会重发失败的数据
+      batch-size: 16384 #16K
+      buffer-memory: 33554432 #32M
+      # 指定消息key和消息体的编解码方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: all
+    consumer:
+      group-id: hhgroup # 消费者组
+      enable-auto-commit: false # 关闭自动提交
+      auto-offset-reset: latest # earliest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    listener:
+      # 当每一条记录被消费者监听器（ListenerConsumer）处理之后提交
+      # RECORD
+      # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后提交
+      # BATCH
+      # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后，距离上次提交时间大于TIME时提交
+      # TIME
+      # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后，被处理record数量大于等于COUNT时提交
+      # COUNT
+      # TIME |　COUNT　有一个条件满足时提交
+      # COUNT_TIME
+      # 当每一批poll()的数据被消费者监听器（ListenerConsumer）处理之后, 手动调用Acknowledgment.acknowledge()后提交
+      # MANUAL
+      # 手动调用Acknowledgment.acknowledge()后立即提交，一般使用这种
+      # MANUAL_IMMEDIATE
+      ack-mode: manual_immediate
+  security:
+    oauth2:
+      client:
+        registration:
+          github: # 自定义提供商标识（如google/github）
+#            client-id: Ov23liJ8gohenEAvxF2l
+#            client-secret: b9143b37f47f91e013b472ef4d49295c2f33f74b
+            client-id: Iv23lic4bDv2GRUZfBN1
+            client-secret: 7d85c9ac7e3efb166914427d96f6c234f9b97951
+#            authorization-grant-type: authorization_code
+#            redirect-uri: http://localhost:9099/login/oauth2/code/github
+#            scope: openid,profile,email  # 按需调整
+          google: # 自定义提供商标识（如google/github）
+            client-id: 92217486830-fg9eanf3bu6c9f5dl7trj9vq5oh7hvl0.apps.googleusercontent.com
+            client-secret: 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
+#            authorization-grant-type: authorization_code
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+          feishu: # 自定义提供商标识（如google/github）
+            client-id: cli_a88df2bd6aa8501c
+            client-secret: YYG5ZgJXhFmSp1JOgIuSBcwIGaj6xBGV
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:9099/login/oauth2/code/feishu
+        provider:
+          feishu: # 与上方注册的标识一致
+            authorization-uri: https://accounts.feishu.cn/open-apis/authen/v1/authorize  # 授权端点
+            token-uri: https://open.feishu.cn/open-apis/authen/v2/oauth/token             # 令牌端点
+            user-info-uri: https://open.feishu.cn/open-apis/authen/v1/user_info       # 用户信息端点
+            user-name-attribute: msg
+  shardingsphere:
+    rules:
+      sharding:
+        tables:
+          short_urls:
+            actual-data-nodes: ds$->{0..1023}.short_urls_$->{0..1023}
+            table-strategy:
+              standard:
+                sharding-column: id
+                sharding-algorithm-name: table-inline
+            database-strategy:
+              standard:
+                sharding-column: id
+                sharding-algorithm-name: db-inline
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shortlink?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: shortlinkuser
+    password: shortlinkpassword
+  data:
+    redis:
+      host: localhost
+      port: 6379

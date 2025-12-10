@@ -12,6 +12,10 @@
     <modules>
         <module>huah-spring-boot-starter</module>
         <module>huah-spring-boot-web</module>
+        <module>huah-spring-boot-shortlink</module>
+        <module>huah-spring-boot-langchain4j</module>
+        <module>huah-spring-boot-springai</module>
+        <module>huah-spring-boot-springai-alibaba</module>
         <module>huah-spring-boot-base</module>
         <module>huah-spring-boot-demo</module>
         <module>huah-spring-boot-dependencies</module>

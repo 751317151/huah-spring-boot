@@ -9,18 +9,32 @@
         <outputRelativeToContentRoot value="true" />
         <module name="huah-spring-boot-base" />
         <module name="huah-spring-boot-demo" />
+        <module name="huah-spring-boot-langchain4j" />
+        <module name="huah-spring-boot-shortlink" />
         <module name="test-huah-spring-boot-starter" />
         <module name="huah-spring-boot-starter-kafka" />
         <module name="huah-spring-boot-web" />
+        <module name="huah-spring-boot-springai-alibaba" />
         <module name="huah-spring-boot-starter-web" />
         <module name="id-generate-huah-spring-boot-starter" />
+        <module name="huah-spring-boot-springai" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8" />
+    <bytecodeTargetLevel target="17" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="huah-spring-boot-web" options="" />
+      <module name="huah-spring-boot-base" options="-parameters" />
+      <module name="huah-spring-boot-demo" options="-parameters" />
+      <module name="huah-spring-boot-langchain4j" options="-parameters" />
+      <module name="huah-spring-boot-shortlink" options="-parameters" />
+      <module name="huah-spring-boot-springai" options="-parameters" />
+      <module name="huah-spring-boot-springai-alibaba" options="-parameters" />
+      <module name="huah-spring-boot-starter-kafka" options="-parameters" />
+      <module name="huah-spring-boot-starter-web" options="-parameters" />
+      <module name="huah-spring-boot-web" options="-parameters" />
+      <module name="id-generate-huah-spring-boot-starter" options="-parameters" />
+      <module name="test-huah-spring-boot-starter" options="-parameters" />
     </option>
   </component>
 </project>

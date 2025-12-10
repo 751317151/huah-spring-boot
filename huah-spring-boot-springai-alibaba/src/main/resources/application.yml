@@ -1,0 +1,59 @@
+server:
+  port: 9099
+#logging:
+#  level:
+#    org.springframework.security: DEBUG
+#    # Spring 容器 Bean 加载日志
+#    org.springframework.beans.factory: DEBUG
+#    # 可选：查看自动配置类的决策过程
+#    org.springframework.boot.autoconfigure: TRACE
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github: # 自定义提供商标识（如google/github）
+#            client-id: Ov23liJ8gohenEAvxF2l
+#            client-secret: b9143b37f47f91e013b472ef4d49295c2f33f74b
+            client-id: Iv23lic4bDv2GRUZfBN1
+            client-secret: 7d85c9ac7e3efb166914427d96f6c234f9b97951
+#            authorization-grant-type: authorization_code
+#            redirect-uri: http://localhost:9099/login/oauth2/code/github
+#            scope: openid,profile,email  # 按需调整
+          google: # 自定义提供商标识（如google/github）
+            client-id: 92217486830-fg9eanf3bu6c9f5dl7trj9vq5oh7hvl0.apps.googleusercontent.com
+            client-secret: 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
+#            authorization-grant-type: authorization_code
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+          feishu: # 自定义提供商标识（如google/github）
+            client-id: cli_a88df2bd6aa8501c
+            client-secret: YYG5ZgJXhFmSp1JOgIuSBcwIGaj6xBGV
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:9099/login/oauth2/code/feishu
+        provider:
+          feishu: # 与上方注册的标识一致
+            authorization-uri: https://accounts.feishu.cn/open-apis/authen/v1/authorize  # 授权端点
+            token-uri: https://open.feishu.cn/open-apis/authen/v2/oauth/token             # 令牌端点
+            user-info-uri: https://open.feishu.cn/open-apis/authen/v1/user_info       # 用户信息端点
+            user-name-attribute: msg
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog_hh?serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: blog_hh
+    password: blog_hh
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  ai:
+    dashscope:
+      api-key: ${aliQwen-api}
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        model: deepseek-r1:7b
+
+logging:
+  level:
+    org.springframework.ai: debug
+    com.huah.huahspringbootspringai: debug
