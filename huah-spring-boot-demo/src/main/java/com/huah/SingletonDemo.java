@@ -20,7 +20,18 @@ public class SingletonDemo {
     }
 
     public static void main(String[] args) {
-        SingletonDemo instance1 = SingletonDemo.getInstance();
-        System.out.println(instance1);
+        SingletonDemo instance = SingletonDemo.getInstance();
+        System.out.println(instance);
+
+        SingletonDemo staticInstance = SingletonDemo.getStaticInstance();
+        System.out.println(staticInstance);
+    }
+
+    public static SingletonDemo getStaticInstance(){
+        return SingleHolder.staticInstance;
+    }
+
+    static class SingleHolder{
+        private static final SingletonDemo staticInstance = new SingletonDemo();
     }
 }

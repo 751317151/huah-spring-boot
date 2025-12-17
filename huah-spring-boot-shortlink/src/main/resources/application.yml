@@ -40,14 +40,16 @@ spring:
       buffer-memory: 33554432 #32M
       # 指定消息key和消息体的编解码方式
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       acks: all
     consumer:
       group-id: hhgroup # 消费者组
       enable-auto-commit: false # 关闭自动提交
       auto-offset-reset: latest # earliest 当各分区下有已提交的offset时，从提交的offset开始消费；无提交的offset时，从头开始消费
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.huah.huahspringbootshortlink.entity
     listener:
       # 当每一条记录被消费者监听器（ListenerConsumer）处理之后提交
       # RECORD

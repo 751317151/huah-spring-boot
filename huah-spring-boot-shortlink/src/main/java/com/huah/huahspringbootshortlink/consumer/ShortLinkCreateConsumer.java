@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -22,7 +23,8 @@ public class ShortLinkCreateConsumer {
     private ShortUrlMapper shortUrlMapper;
 
     @KafkaListener(topics = "shortlink-create", groupId = "shortlink-persist")
-    public void consume(ConsumerRecord<String, ShortLinkEvent> record) {
+    public void consume(ConsumerRecord<String, ShortLinkEvent> record, Acknowledgment ack) {
+        log.info("Consume: {}", record);
         ShortLinkEvent event = record.value();
 
         try {
@@ -36,10 +38,11 @@ public class ShortLinkCreateConsumer {
 
             // 插入 MySQL（MyBatis 自动路由到分库分表）
             shortUrlMapper.insert(entity);
-
+            ack.acknowledge();
         } catch (DuplicateKeyException e) {
             // 幂等：唯一索引冲突，忽略
             log.warn("Duplicate code: {}: {}", event.getCode(), event.getId());
+            ack.acknowledge();
         } catch (Exception e) {
             // 重试 or 死信队列（简化）
             throw new RuntimeException("Persist failed, will retry", e);
